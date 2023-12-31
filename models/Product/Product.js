@@ -25,10 +25,6 @@ const ProductSchema = new Schema({
     type: String,
     required: true,
   },
-  photo: {
-    type: File,
-    required: true,
-  },
 });
 
 const Product = model("Product", ProductSchema);
