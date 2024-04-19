@@ -7,6 +7,11 @@ const findByProperty = (key, value) => {
   return User.findOne({ [key]: value });
 };
 
+const getAllUser = () => {
+  return User.find();
+};
+
 module.exports = {
   findByProperty,
+  getAllUser,
 };

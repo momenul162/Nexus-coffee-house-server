@@ -1,11 +1,19 @@
 const express = require("express");
 const connectDB = require("./db");
 const privateRoute = require("./middleware/uthenticate");
-const router = require("./routes/product");
+const productRoutes = require("./routes/product");
+const authRoutes = require("./routes/auth");
+const userRoutes = require("./routes/user");
+const categoryRoutes = require("./routes/category");
+const cors = require("cors");
 
 const app = express();
+app.use(cors());
 app.use(express.json());
-app.use(router);
+app.use(productRoutes);
+app.use(authRoutes);
+app.use(userRoutes);
+app.use(categoryRoutes);
 
 app.get("/private", privateRoute, async (_req, res) => {
   return res.send("This is private route");

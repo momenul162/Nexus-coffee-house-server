@@ -24,7 +24,6 @@ const userSchema = new Schema({
   roles: {
     type: [String],
     default: ["USER"],
-    required: true,
   },
 });
 

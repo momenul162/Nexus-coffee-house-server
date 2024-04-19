@@ -5,21 +5,29 @@ const ProductSchema = new Schema({
     type: String,
     required: true,
   },
-  chef: {
-    type: String,
-    required: true,
+  price: {
+    type: Object,
+    require: true,
+    default: { price: 0, newPrice: 0 },
   },
   taste: {
     type: String,
     required: true,
   },
   category: {
-    type: [String],
+    type: Schema.Types.ObjectId,
+    ref: "Category",
     required: true,
   },
-  supplier: {
+  image: {
     type: String,
     required: true,
+  },
+  stock: {
+    type: Number,
+  },
+  discount: {
+    type: Number,
   },
   details: {
     type: String,
@@ -28,4 +36,5 @@ const ProductSchema = new Schema({
 });
 
 const Product = model("Product", ProductSchema);
+
 module.exports = Product;

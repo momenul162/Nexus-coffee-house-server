@@ -6,35 +6,30 @@ const authenticate = require("../middleware/uthenticate");
  * -@method GET
  * -Get one product by productId
  */
-router.get("/api/products/:productId", authenticate, productCotroller.getProductById);
-/**
- * -@method PATCH
- * -Update a product using patch
- */
-router.patch("/api/products/:productId", authenticate);
+router.get("/api/products/:productId", productCotroller.getProductById);
 
 /**
- * -@method PUT
+ * -@method PATCH
  * -Update a product using put
  */
-router.put("/api/products/:productId", authenticate);
+router.patch("/admin/api/products/:productId", productCotroller.updateProductById);
 
 /**
  * -@method DELETE
  * -Create a product
  */
-router.delete("/api/products/:productId", authenticate, productCotroller.deleteProductById);
+router.delete("/admin/api/products/:productId", productCotroller.deleteProductById);
 
 /**
  * -@method POST
  * -Create a new product
  */
-router.post("/api/products", authenticate, productCotroller.postProduct);
+router.post("/admin/api/products", productCotroller.postProduct);
 
 /**
  * -@method GET
  * -Get all product
  */
-router.get("/api/products", authenticate, productCotroller.getAllproduct);
+router.get("/api/products", productCotroller.getAllproduct);
 
 module.exports = router;
