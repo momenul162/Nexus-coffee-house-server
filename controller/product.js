@@ -2,25 +2,17 @@ const productService = require("../service/product");
 const error = require("../utils/error");
 
 const getAllproduct = async (req, res, next) => {
+  const { order = "asc", page = 1, limit = 9 } = req.query;
+
+  const skip = (page - 1) * limit;
+
+  const sort = order === "asc" ? 1 : -1;
+  const options = { category: sort };
   try {
-    // const { page = 1, limit = 9, category } = req.query;
+    const products = await productService.getProducts(options, skip, parseInt(limit));
+    const totalProduct = await productService.getTotalProductsCount();
 
-    // let query = {};
-    // if (category) {
-    //   query.category = category;
-    // }
-
-    // const options = {
-    //   page: parseInt(page),
-    //   limit: parseInt(limit),
-    // };
-    /**
-     * TODO: how can provide params??
-     */
-
-    const products = await productService.getProducts();
-
-    return res.status(200).json(products);
+    return res.status(200).json({ products, totalProduct, page, limit });
   } catch (error) {
     next(error);
   }
@@ -115,3 +107,18 @@ module.exports = {
   updateProductById,
   deleteProductById,
 };
+
+// const { page = 1, limit = 9, category } = req.query;
+
+// let query = {};
+// if (category) {
+//   query.category = category;
+// }
+
+// const options = {
+//   page: parseInt(page),
+//   limit: parseInt(limit),
+// };
+/**
+ * TODO: how can provide params??
+ */

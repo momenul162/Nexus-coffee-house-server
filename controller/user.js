@@ -14,6 +14,21 @@ const allUser = async (_req, res, next) => {
   }
 };
 
+const getCurrentUser = async (req, res, next) => {
+  const currentUser = req.user;
+  try {
+    // const user = await userService.findByProperty("_id", currentUser._id);
+
+    // if (!user) {
+    //   throw error("User not found", 400);
+    // }
+
+    return res.status(200).json(currentUser);
+  } catch (error) {
+    next(error);
+  }
+};
+
 const updateUser = async (req, res, next) => {
   const { userId } = req.params;
   const { roles } = req.body;
@@ -52,6 +67,7 @@ const deleteUser = async (req, res, next) => {
 
 module.exports = {
   allUser,
+  getCurrentUser,
   updateUser,
   deleteUser,
 };

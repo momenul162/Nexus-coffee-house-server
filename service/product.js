@@ -1,8 +1,17 @@
 const Product = require("../models/Product/Product");
 const error = require("../utils/error");
 
-const getProducts = () => {
-  return Product.find();
+const getProducts = (sort, skip, limit) => {
+  const products = Product.find({})
+    .sort(sort)
+    .skip(skip)
+    .limit(limit)
+    .populate({ path: "category", select: "name" });
+  return products;
+};
+
+const getTotalProductsCount = () => {
+  return Product.countDocuments();
 };
 
 const findProductByProperty = (key, value) => {
@@ -46,5 +55,6 @@ const postProductService = async ({
 module.exports = {
   postProductService,
   getProducts,
+  getTotalProductsCount,
   findProductByProperty,
 };

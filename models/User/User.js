@@ -9,6 +9,7 @@ const userSchema = new Schema({
   email: {
     type: String,
     required: true,
+    lowercase: true,
     validate: {
       validator: function (v) {
         return /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(v);
@@ -22,8 +23,8 @@ const userSchema = new Schema({
     minLength: [6, "Pass is too short"],
   },
   roles: {
-    type: [String],
-    default: ["USER"],
+    type: String,
+    default: "USER",
   },
 });
 
