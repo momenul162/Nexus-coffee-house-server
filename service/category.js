@@ -6,7 +6,6 @@ const getCategory = () => {
 };
 
 const findCategoryByProperty = (key, value) => {
-  console.log("key:", key, "value:", value);
   if (key == "_id") {
     return Category.findById(value);
   }
