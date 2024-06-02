@@ -40,6 +40,7 @@ const postCart = async (req, res, next) => {
 
   try {
     let exist = await Cart.findOne({ itemId: newCart.itemId });
+
     if (!exist) {
       exist = newCart;
     } else {

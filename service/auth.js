@@ -34,7 +34,7 @@ const loginService = async ({ email, password }) => {
     password: user.password,
     roles: user.roles,
   };
-  return (token = jwt.sign(payload, "secret-key", { expiresIn: "2h" }));
+  return (token = jwt.sign(payload, "secret-key", { expiresIn: "7d" }));
 };
 
 module.exports = {

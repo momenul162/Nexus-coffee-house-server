@@ -12,19 +12,19 @@ router.get("/api/products/:productId", productCotroller.getProductById);
  * -@method PATCH
  * -Update a product using put
  */
-router.patch("/admin/api/products/:productId", productCotroller.updateProductById);
+router.patch("/admin/api/products/:productId", authenticate, productCotroller.updateProductById);
 
 /**
  * -@method DELETE
  * -Create a product
  */
-router.delete("/admin/api/products/:productId", productCotroller.deleteProductById);
+router.delete("/admin/api/products/:productId", authenticate, productCotroller.deleteProductById);
 
 /**
  * -@method POST
  * -Create a new product
  */
-router.post("/admin/api/products", productCotroller.postProduct);
+router.post("/admin/api/products", authenticate, productCotroller.postProduct);
 
 /**
  * -@method GET
