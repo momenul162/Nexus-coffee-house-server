@@ -47,8 +47,6 @@ const postProductService = async ({
     image,
   });
 
-  console.log("New Product:", product);
-
   return product.save();
 };
 

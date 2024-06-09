@@ -27,8 +27,12 @@ const updateUser = async (req, res, next) => {
   const { userId } = req.params;
   const { roles } = req.body;
 
+  if (!roles) {
+    throw error("Please select role", 4000);
+  }
+
   try {
-    const user = await userService.findByProperty("_id", userId);
+    let user = await userService.findByProperty("_id", userId);
 
     if (!user) {
       throw error("User not found", 400);
