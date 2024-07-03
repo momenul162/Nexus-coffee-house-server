@@ -12,7 +12,6 @@ const ProductSchema = new Schema({
   },
   taste: {
     type: String,
-    required: true,
   },
   category: {
     type: Schema.Types.ObjectId,
@@ -23,7 +22,7 @@ const ProductSchema = new Schema({
     type: String,
     required: true,
   },
-  stock: {
+  sold: {
     type: Number,
   },
   discount: {

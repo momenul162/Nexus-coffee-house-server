@@ -7,6 +7,7 @@ const userRoutes = require("./routes/user");
 const categoryRoutes = require("./routes/category");
 const cartRoutes = require("./routes/cart");
 const paymentRoutes = require("./routes/payment");
+const reviewRoutes = require("./routes/review");
 const cors = require("cors");
 
 const app = express();
@@ -18,6 +19,7 @@ app.use(userRoutes);
 app.use(categoryRoutes);
 app.use(cartRoutes);
 app.use(paymentRoutes);
+app.use(reviewRoutes);
 
 app.get("/private", privateRoute, async (_req, res) => {
   return res.send("This is private route");

@@ -1,7 +1,7 @@
+const router = require("express").Router();
 const userController = require("../controller/user");
 const authenticate = require("../middleware/uthenticate");
 const verifyAdmin = require("../middleware/verifyAdmin");
-const router = require("express").Router();
 
 router.get("/api/current/user", authenticate, userController.getCurrentUser);
 router.get("/api/users", authenticate, verifyAdmin, userController.allUser);

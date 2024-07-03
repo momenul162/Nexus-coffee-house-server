@@ -6,7 +6,7 @@ const postPaymentHistory = (newHistory) => {
   return paymentHistory.save();
 };
 
-const getOrderByProperty = ({ key, value }) => {
+const getOrderByProperty = (key, value) => {
   if (key === "_id") {
     return Payment.findById(value);
   } else {
@@ -14,10 +14,16 @@ const getOrderByProperty = ({ key, value }) => {
   }
 };
 
-const getOrders = () => {
-  const orders = Payment.find();
-
-  return orders;
+const getOrders = (userId) => {
+  if (userId) {
+    return (orders = Payment.find({ userId })
+      .populate({ path: "productId", select: "name image price" })
+      .populate({ path: "userId", select: "name email" }));
+  } else {
+    return (orders = Payment.find()
+      .populate({ path: "productId", select: "name image price" })
+      .populate({ path: "userId", select: "name email" }));
+  }
 };
 
 module.exports = {

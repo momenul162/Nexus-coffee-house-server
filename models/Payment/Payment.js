@@ -6,14 +6,20 @@ const paymentSchema = new Schema({
     ref: "User",
     required: true,
   },
-  cartItem: {
-    type: Array,
-    required: true,
-  },
-  productId: {
-    type: Array,
-    required: true,
-  },
+  cartItem: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Cart",
+      required: true,
+    },
+  ],
+  productId: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Product",
+      required: true,
+    },
+  ],
   amount: {
     type: Number,
     required: true,

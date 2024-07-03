@@ -21,7 +21,9 @@ const getAllproduct = async (req, res, next) => {
 const getProductById = async (req, res, next) => {
   const { productId } = req.params;
   try {
-    const product = await productService.findProductByProperty("_id", productId);
+    const product = await productService
+      .findProductByProperty("_id", productId)
+      .populate({ path: "category", select: "name" });
 
     if (!product) {
       throw error("Product not found", 404);

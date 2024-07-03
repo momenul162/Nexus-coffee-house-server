@@ -4,21 +4,28 @@ const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 const paymentService = require("../service/payment");
 const Cart = require("../models/Cart/Cart");
 const error = require("../utils/error");
+const { catchAsync } = require("../utils/catch-async");
 
-const paymentIntents = async (req, res, next) => {
+const paymentIntents = catchAsync(async (req, res) => {
   const { price } = req.body;
   const amount = price * 100;
+  const paymentIntent = await stripe.paymentIntents.create({
+    amount: amount,
+    currency: "usd",
+    payment_method_types: ["card"],
+  });
 
+  return res.status(200).json({
+    clientSecret: paymentIntent.client_secret,
+  });
+});
+
+const getOrdersForUser = async (req, res, next) => {
+  const { userId } = req.params;
   try {
-    const paymentIntent = await stripe.paymentIntents.create({
-      amount: amount,
-      currency: "usd",
-      payment_method_types: ["card"],
-    });
+    const orders = await paymentService.getOrders(userId);
 
-    res.status(200).json({
-      clientSecret: paymentIntent.client_secret,
-    });
+    return res.status(200).json(orders);
   } catch (error) {
     next(error);
   }
@@ -28,7 +35,7 @@ const getOrders = async (_req, res, next) => {
   try {
     const orders = await paymentService.getOrders();
 
-    res.status(200).json(orders);
+    return res.status(200).json(orders);
   } catch (error) {
     next(error);
   }
@@ -37,9 +44,9 @@ const getOrders = async (_req, res, next) => {
 const updateOrderStatus = async (req, res, next) => {
   const { orderId } = req.params;
   const { status } = req.body;
-
+  console.log(orderId);
   try {
-    let order = await paymentService.getOrderByProperty("_id", orderId);
+    const order = await paymentService.getOrderByProperty("_id", orderId);
 
     if (!order) {
       throw error("Order not found", 400);
@@ -47,7 +54,7 @@ const updateOrderStatus = async (req, res, next) => {
     order.status = status ?? order.status;
 
     await order.save();
-    res.status(200).json(order);
+    return res.status(200).json(order);
   } catch (error) {
     next(error);
   }
@@ -65,7 +72,7 @@ const paymentHistory = async (req, res, next) => {
 
     await Cart.deleteMany(query);
 
-    res.status(200).json(history);
+    return res.status(200).json(history);
   } catch (error) {
     next(error);
   }
@@ -73,6 +80,7 @@ const paymentHistory = async (req, res, next) => {
 
 module.exports = {
   getOrders,
+  getOrdersForUser,
   updateOrderStatus,
   paymentIntents,
   paymentHistory,

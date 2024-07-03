@@ -5,7 +5,8 @@ const verifyAdmin = require("../middleware/verifyAdmin");
 
 router.post("/payment_intents", authentication, paymentController.paymentIntents);
 router.post("/payment-history", authentication, paymentController.paymentHistory);
-router.get("/api/orders", authentication, paymentController.getOrders);
+router.get("/api/admin/orders", authentication, paymentController.getOrders);
+router.get("/api/orders/:userId", authentication, paymentController.getOrdersForUser);
 router.patch(
   "/api/admin/orders/:orderId",
   authentication,
