@@ -1,5 +1,6 @@
 const express = require("express");
 const connectDB = require("./db");
+const port = process.env.PORT || 4000;
 const privateRoute = require("./middleware/uthenticate");
 const productRoutes = require("./routes/product");
 const authRoutes = require("./routes/auth");
@@ -37,11 +38,16 @@ app.use((err, _req, res, _next) => {
   return res.status(status).json({ message });
 });
 
-connectDB("mongodb://0.0.0.0:27017/coffee-house")
+connectDB(
+  `mongodb+srv://${process.env.MONGODB_USERNAME}:${process.env.MONGODB_PASS}@nexuscoffeehouse.vp2eegp.mongodb.net/?retryWrites=true&w=majority&appName=NexusCoffeeHouse`
+)
   .then(() => {
     console.log("Database connected with server");
-    app.listen(4000, () => {
-      console.log(`This server is listening on port: 4000`);
+    app.listen(port, "0.0.0.0", () => {
+      console.log(`This server is listening on port: ${port}`);
     });
   })
-  .catch((e) => console.log(e));
+  .catch((e) => {
+    console.error("Failed to connect to the database:", e);
+    process.exit(1); // Exit the process if the database connection fails
+  });
