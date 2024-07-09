@@ -38,7 +38,7 @@ const postProduct = async (req, res, next) => {
   const { name, image, supplier, price, taste, category, details } = req.body;
 
   if (!name || !image || !price || !taste || !category) {
-    throw error("Please atleast enter name, price, taste, image & category", 400);
+    throw error("Please at least enter name, price, taste, image & category", 400);
   }
 
   try {
