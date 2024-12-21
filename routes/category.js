@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const categoryController = require("../controller/category");
-const authentication = require("../middleware/uthenticate");
+const authentication = require("../middleware/authenticate");
 const verifyAdmin = require("../middleware/verifyAdmin");
 
 router.get("/api/categories/:categoryId", authentication, categoryController.getCategoryById);

@@ -1,7 +1,7 @@
 const express = require("express");
 const connectDB = require("./db");
 const port = process.env.PORT || 4000;
-const privateRoute = require("./middleware/uthenticate");
+const privateRoute = require("./middleware/authenticate");
 const productRoutes = require("./routes/product");
 const authRoutes = require("./routes/auth");
 const userRoutes = require("./routes/user");

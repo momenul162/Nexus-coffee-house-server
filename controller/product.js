@@ -2,7 +2,7 @@ const productService = require("../service/product");
 const error = require("../utils/error");
 
 const getAllproduct = async (req, res, next) => {
-  const { order = "asc", page = 1, limit = 9 } = req.query;
+  const { order = "asc", page = 1, limit = 8 } = req.query;
 
   const skip = (page - 1) * limit;
 

@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const userController = require("../controller/user");
-const authenticate = require("../middleware/uthenticate");
+const authenticate = require("../middleware/authenticate");
 const verifyAdmin = require("../middleware/verifyAdmin");
 
 router.get("/api/current/user", authenticate, userController.getCurrentUser);

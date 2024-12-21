@@ -35,6 +35,24 @@ const getCart = async (req, res, next) => {
   }
 };
 
+const removeFromCart = async (req, res, next) => {
+  const { cartId } = req.params;
+
+  try {
+    const cart = await Cart.findById(cartId);
+    console.log(cart);
+
+    if (!cart) {
+      throw error("Cart Not found", 404);
+    }
+
+    await Cart.deleteOne(cart);
+    return res.status(203).json("Cart removed");
+  } catch (error) {
+    next(error);
+  }
+};
+
 const postCart = async (req, res, next) => {
   const newCart = req.body;
 
@@ -58,5 +76,6 @@ const postCart = async (req, res, next) => {
 
 module.exports = {
   getCart,
+  removeFromCart,
   postCart,
 };
